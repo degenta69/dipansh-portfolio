@@ -1,0 +1,65 @@
+{
+  "size": {
+    "width": 1200,
+    "height": 630
+  },
+  "fonts": [
+    {
+      "name": "Display",
+      "family": "IBM Plex Sans",
+      "weight": 500,
+      "style": "normal",
+      "url": "https://raw.githubusercontent.com/IBM/plex/c5f949677f6f163e8dfe98ca2c326bd48b42fa1b/packages/plex-sans/fonts/complete/ttf/IBMPlexSans-Medium.ttf",
+      "sha256": "331c8639d7598b2cde62a911a71db195e30cb655cd6bdf2e324a7e984955f907"
+    },
+    {
+      "name": "Mono",
+      "family": "JetBrains Mono",
+      "weight": 500,
+      "style": "normal",
+      "url": "https://fonts.gstatic.com/s/jetbrainsmono/v24/tDbY2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8-qxjPQ.ttf",
+      "sha256": "3386a05f6ece969e4537de6be894170d20558e82f7d56c8c5d332972ef172160"
+    },
+    {
+      "name": "Body",
+      "family": "Source Serif 4",
+      "weight": 400,
+      "style": "normal",
+      "url": "https://raw.githubusercontent.com/adobe-fonts/source-serif/2823e993c53fca27c5c8749f529b56a5a7c77b6b/TTF/SourceSerif4-Regular.ttf",
+      "sha256": "e5a4ee6a3d87bb9024796be390c6771e2a0eb1883dae25effaf57ca01668e24b"
+    }
+  ],
+  "renderer": [
+    {
+      "name": "next",
+      "version": "16.3.8",
+      "integrity": "sha512-U7QEZaTini6wKrb8A8hqLLqYQyCetegKjCpJOyxk642vWoMoU1x5PyZCJFvgYgiptA8xc5j/9xYlZFO7w9Sjmw=="
+    },
+    {
+      "name": "react",
+      "version": "19.3.0",
+      "integrity": "sha512-E8LUcbtBWt20bbl2YoHfx4ZDBdxVTfOKtCZn9cDSJ4l6/nuoApcpIBcj47t2wZoVX8g2ZHuMHbiShgCR1T5Sog=="
+    },
+    {
+      "name": "sharp",
+      "version": "0.35.5",
+      "integrity": "sha512-Ywn4OnzGukp7CDMrp08RQ50YKmuwG47brZgIVPTvBaaAfQlRlygrRqSrxdCiL9M+LlzLBiJ68IR1QqvzHyjC7g=="
+    }
+  ],
+  "profile": {
+    "name": "Dipansh Saxena",
+    "role": "Full-stack engineer",
+    "focus": "Payment systems"
+  },
+  "colors": {
+    "ink": "#23262b",
+    "paper": "#f6f2e9",
+    "body": "#23262b",
+    "graphite": "#575b63",
+    "accent": "#0b5d5e",
+    "hairline": "rgba(35, 38, 43, 0.14)"
+  },
+  "generatorDigest": "d48dada6e09da9c90408a32ecccb31f2d7a148a59840a7bd0c534d7c3b6e31b1",
+  "imageDigest": "f2cd2ace4cf9a53fdb869e21cc277f8b1881e5ef5fe29189b232f1b5f589cfba",
+  "posts": []
+}
