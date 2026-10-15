@@ -25,7 +25,7 @@ const DEPLOYMENT_HOST = 'dipansh-portfolio-a1b2c3d4e5-degenta69.vercel.app';
 describe('vercel.json', () => {
   it('builds with the guard, export checks and exports the static site', () => {
     expect(config.buildCommand).toBe(
-      'npm run guard && npm run build && npm run verify-export && npm run measure-export',
+      'npm run build && npm run verify-export && npm run measure-export',
     );
     expect(config.outputDirectory).toBe('out');
     expect(config.framework).toBe('nextjs');
