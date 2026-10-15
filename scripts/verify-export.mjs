@@ -449,13 +449,26 @@ for (const record of records) {
 
   // Next adds its own noindex on the not-found route, beside the layout tag.
   // Two tags are fine when every one of them refuses indexing.
+  // In a public production build the layout says index while Next adds noindex
+  // on the not-found pages. Crawlers obey noindex, so those pages stay hidden.
+  const isNotFoundPage = [
+    '404.html',
+    '404/index.html',
+    '_not-found/index.html',
+  ].includes(relativePath);
+  const noindexWins = isNotFoundPage && directives.includes('noindex');
   if (
+    !noindexWins &&
     robots.length > 1 &&
     !robots.every((content) => content.toLowerCase().includes('noindex'))
   ) {
     fail(relativePath, `${robots.length} robots tags: ${robots.join(' | ')}`);
   }
-  if (directives.includes('noindex') && directives.includes('index')) {
+  if (
+    !noindexWins &&
+    directives.includes('noindex') &&
+    directives.includes('index')
+  ) {
     fail(
       relativePath,
       `robots says both noindex and index: ${robots.join(' | ')}`,
