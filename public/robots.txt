@@ -1,4 +1,0 @@
-# Private default for local builds and previews.
-# A production build with PORTFOLIO_PUBLIC=1 rewrites out/robots.txt.
-User-agent: *
-Disallow: /
