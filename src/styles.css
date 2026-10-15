@@ -265,3 +265,17 @@ html[data-motion=off] .scroll-cue span,html[data-motion=off] .live i{animation:n
   body{background:#fff}body::before,.nav,.foot,.no-print,.skip{display:none!important}
   .resume{padding:0;max-width:none}.paper{box-shadow:none;padding:0;background:#fff}
 }
+
+/* ---- custom cursor (only active when JS adds .has-cursor) ---- */
+html.has-cursor, html.has-cursor *{cursor:none !important}
+html.has-cursor :is(input,textarea,select,[contenteditable="true"],[contenteditable="true"] *){cursor:auto !important}
+html.has-cursor :is(input[type=text],input:not([type]),input[type=search],input[type=email],textarea){cursor:text !important}
+.cursor{mix-blend-mode:difference;position:fixed;left:0;top:0;width:0;height:0;pointer-events:none;z-index:2147483000;opacity:0;contain:layout style}
+.cursor-ring,.cursor-dot{position:fixed;left:0;top:0;pointer-events:none;will-change:transform}
+.cursor-ring{width:0;height:0}
+.cursor-shape{position:absolute;left:0;top:0;translate:-50% -50%;border:1.5px solid var(--lime);background:rgba(198,255,61,.04);will-change:transform,width,height;transition:background-color .25s,border-color .25s}
+.cursor-shape.is-hover{background:rgba(198,255,61,.14);box-shadow:0 0 24px rgba(198,255,61,.25)}
+.cursor-shape.is-text{background:var(--lime);border-color:var(--lime)}
+.cursor-label{position:absolute;left:0;top:0;translate:-50% -50%;font:600 .68rem/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--lime);opacity:0;white-space:nowrap;will-change:transform,opacity}
+.cursor-dot{width:7px;height:7px;border-radius:50%;background:var(--lime);box-shadow:0 0 10px rgba(198,255,61,.7)}
+@media (hover:none),(pointer:coarse),(prefers-reduced-motion:reduce){.cursor{display:none}}

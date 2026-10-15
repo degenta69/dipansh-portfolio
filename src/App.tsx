@@ -10,6 +10,7 @@ import Mobcoder from './sections/Mobcoder'
 import Skills from './sections/Skills'
 import Contact from './sections/Contact'
 import Resume from './sections/Resume'
+import Cursor from './Cursor'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -74,6 +75,7 @@ export default function App() {
   return (
     <MotionProvider>
       <Shell />
+      <Cursor />
     </MotionProvider>
   )
 }
