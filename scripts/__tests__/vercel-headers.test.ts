@@ -13,7 +13,7 @@ const config = JSON.parse(
 ) as {
   buildCommand: string;
   outputDirectory: string;
-  framework: string;
+  framework: string | null;
   trailingSlash: boolean;
   headers: HeaderRule[];
 };
@@ -28,7 +28,7 @@ describe('vercel.json', () => {
       'npm run build && npm run verify-export && npm run measure-export',
     );
     expect(config.outputDirectory).toBe('out');
-    expect(config.framework).toBe('nextjs');
+    expect(config.framework).toBeNull();
     expect(config.trailingSlash).toBe(true);
   });
 
