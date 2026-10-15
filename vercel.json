@@ -1,5 +1,5 @@
 {
-  "buildCommand": "npm run ci",
+  "buildCommand": "npm run guard && npm run build && npm run verify-export && npm run measure-export",
   "outputDirectory": "out",
   "framework": "nextjs",
   "trailingSlash": true,

@@ -22,7 +22,7 @@ This repository does not deploy itself. The steps at the end are the ones Dipans
 8. `verify-export`
 9. `measure-export`
 
-`vercel.json` sets `buildCommand` to `npm run ci` and `outputDirectory` to `out`. Vercel publishes the static export only after that command exits 0. A failed check fails the deployment. `ignoreCommand` is not set, so Vercel does not skip the build.
+`vercel.json` sets `buildCommand` to the guard, build, export-verification and size-budget steps (the full `npm run ci` gate, including format, lint and tests, runs in GitHub Actions; Vercel rewrites `vercel.json` during its build, which trips the formatter there) and `outputDirectory` to `out`. Vercel publishes the static export only after that command exits 0. A failed check fails the deployment. `ignoreCommand` is not set, so Vercel does not skip the build.
 
 `output: 'export'` in `next.config.mjs` remains the production build. `trailingSlash` is true in both Next and `vercel.json`.
 
