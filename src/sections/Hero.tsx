@@ -2,6 +2,7 @@ import { useLayoutEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { useMotion } from '../motion'
 import { Chip } from '../ui'
+import PortfolioAvatar from '../PortfolioAvatar'
 
 export default function Hero() {
   const root = useRef<HTMLElement>(null)
@@ -20,7 +21,7 @@ export default function Hero() {
     const onMove = (e: PointerEvent) => {
       const x = (e.clientX / window.innerWidth - 0.5) * 2
       const y = (e.clientY / window.innerHeight - 0.5) * 2
-      gsap.to('.hero-art', { x: x * -14, y: y * -10, duration: 0.8, ease: 'power2.out' })
+      gsap.to('.hero-art svg', { x: x * -14, y: y * -10, duration: 0.8, ease: 'power2.out' })
       gsap.to('.hero-grid', { x: x * 8, y: y * 6, duration: 1, ease: 'power2.out' })
     }
     window.addEventListener('pointermove', onMove)
@@ -68,9 +69,8 @@ export default function Hero() {
             <text x="20" y="362">device</text><text x="176" y="104">cloud</text><text x="336" y="282">ledger</text><text x="440" y="124">user</text>
           </g>
         </svg>
-        {/* PLACEHOLDER: reserved slot for the planned 3D portrait / avatar */}
-        <div className="portrait-slot"><span>DS</span><small>portrait slot · placeholder</small></div>
       </figure>
+      <PortfolioAvatar className="hero-avatar" priority delayMs={500} transitionMs={1200} />
       <div className="scroll-cue" aria-hidden="true"><span /></div>
     </section>
   )
