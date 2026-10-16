@@ -156,7 +156,6 @@ export default function Mobcoder() {
               <li><b>Hardening:</b> multi-phase security reviews covering auth, signed webhooks, idempotency and payload encryption.</li>
               <li>Extracted a reusable <b>OTP / JWT / Redis auth service</b> for multi-app identity.</li>
             </ul>
-            <p className="note">Design note: the platform was originally designed with food delivery in mind, but it works for anything that takes a payment.</p>
           </div>
         </div>
       </article>

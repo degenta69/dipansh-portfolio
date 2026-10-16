@@ -12,4 +12,4 @@ Routes: `/` (single page) and `#/resume` (printable résumé, hash route so no r
 
 Motion: honours `prefers-reduced-motion`; the nav toggle overrides and persists (localStorage). With motion off all content shows statically; demos need a click to advance.
 Placeholders: hero portrait slot (reserved for the 3D photo). No three.js yet (phase 2).
-All demos are labelled "illustrative simulation"; metrics are labelled "self-reported".
+All demos are labelled "illustrative simulation".

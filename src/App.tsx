@@ -65,7 +65,7 @@ function Shell() {
       <footer className="foot">
         <span>© 2026 Dipansh Saxena</span>
         <span>Built with React, TypeScript &amp; GSAP · static, no trackers</span>
-        <span>All demos are <em>illustrative simulations</em>; metrics are <em>self-reported</em>.</span>
+        <span>All demos are <em>illustrative simulations</em>.</span>
       </footer>
     </>
   )

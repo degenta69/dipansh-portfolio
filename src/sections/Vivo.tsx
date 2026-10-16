@@ -214,7 +214,7 @@ export default function Vivo() {
               <li>Reads <b>serial ports</b> in real time and charts the stream.</li>
               <li><b>Main / renderer separation</b> over IPC: the main process owns the port, the renderer only paints.</li>
               <li><b>Buffering + Web Workers</b> keep the UI smooth when data arrives faster than a screen can repaint.</li>
-              <li><b>Packaged for Windows</b> and used by the internal hardware team, roughly 15–20 engineers.</li>
+              <li><b>Packaged for Windows</b> and used by the internal hardware team.</li>
               <li>The tool also flashed firmware to microcontrollers.</li>
             </ul>
             <div className="arch" aria-label="Electron architecture">

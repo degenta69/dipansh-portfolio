@@ -33,7 +33,6 @@ export default function Resume() {
               <Bul>Designed a precision-first financial model (“Minor Pattern”) to eliminate floating-point errors across commissions, GST handling and automated settlement pipelines with configurable payout schedules.</Bul>
               <Bul>SafeGold integration: built the digital-gold buy/sell/gift/KYC service and SDK layer (custodial and KYC wallets in micrograms, BullMQ reward/buy/transfer pipelines, rate-lock, idempotency, reconciliation); split payments, loyalty earn/redeem and buyer-first refunds with Lean Account-on-File seller recovery.</Bul>
               <Bul>Hardening: drove multi-phase security reviews (auth, webhooks, idempotency, payload encryption); extracted reusable oxy-auth (OTP/JWT/Redis) for multi-app identity.</Bul>
-              <Bul>Real-time and high-throughput systems: order lifecycle tracking with Socket.io; Redis as a buffer layer with controlled persistence to PostgreSQL.</Bul>
               <Bul>Worked in an AI-assisted development workflow to explore design options and speed up implementation while keeping correctness through debugging, validation and continuous refactoring.</Bul>
             </ul>
           </div>
@@ -41,14 +40,14 @@ export default function Resume() {
           <div className="job">
             <div className="job-h"><div><h3>Vivo Collaboration Solution</h3><p>React Developer → Software Engineer (JavaScript) → Software Engineer (Full Stack) · Noida</p></div><time>May 2022 – Jan 2026</time></div>
             <ul>
-              <Bul>Built and maintained a mobile application (Ionic, with Cordova/Capacitor plugins) and admin portal for connected devices: bug fixing, new functionality, testing and maintenance. Shipped 40+ features from client feedback and fixed 700+ bugs and issues <i>(self-reported)</i>.</Bul>
+              <Bul>Built and maintained a mobile application (Ionic, with Cordova/Capacitor plugins) and admin portal for connected devices: bug fixing, new functionality, testing and maintenance. Shipped 40+ features from client feedback and fixed 700+ bugs and issues.</Bul>
               <Bul>Integrated native Android features (contacts, Bluetooth/BLE, Wi-Fi) through Cordova and Capacitor plugins; built camera and contacts integrations from scratch; worked on Web Workers and MQTT with AWS IoT.</Bul>
-              <Bul>Led R&amp;D for dynamic data visualisation: 6+ static and 5 live-streaming charts <i>(self-reported)</i>; built 50+ reusable Material UI components <i>(self-reported)</i>.</Bul>
-              <Bul>Pioneered an in-house Electron.js desktop tool (Windows) for serial-port data reading, real-time charting and firmware flashing to microcontrollers, used by the internal hardware team (about 15–20 engineers) to debug live devices; main/renderer separation over IPC, buffering and Web Workers. Reduced device-debugging time by 40% <i>(self-reported)</i>.</Bul>
+              <Bul>Led R&amp;D for dynamic data visualisation: 6+ static and 5 live-streaming charts; built 50+ reusable Material UI components.</Bul>
+              <Bul>Pioneered an in-house Electron.js desktop tool (packaged for Windows) for serial-port data reading, real-time charting and firmware flashing to microcontrollers, used by the internal hardware team to debug live devices; main/renderer separation over IPC, buffering and Web Workers. Reduced device-debugging time by 40%.</Bul>
               <Bul>Designed back-end architecture, set up AWS services and environments, and built micro-services, APIs and cron jobs on Lambda, EventBridge and SQS; KMS-protected secrets; AWS Parameter Store, SNS and SES. Created the architecture for a reusable AWS Lambda Node.js API template.</Bul>
               <Bul>Built the GRC / compliance platform back end and admin front end: source-agnostic evidence ingestion for multi-account workflows, control mapping, task assignment and auditor collaboration (SOC 2, ISO 27001, HIPAA).</Bul>
-              <Bul>Automated CI/CD with GitHub Actions, shell scripts and AWS SAM for micro-services, Lambda and layers; 30% reduction in deployment time <i>(self-reported)</i>.</Bul>
-              <Bul>Developed a custom Prisma/MongoDB wrapper, reducing query time by up to 80% <i>(self-reported)</i>.</Bul>
+              <Bul>Automated CI/CD with GitHub Actions, shell scripts and AWS SAM for micro-services, Lambda and layers; 30% reduction in deployment time.</Bul>
+              <Bul>Developed a custom Prisma/MongoDB wrapper, reducing query time by up to 80%.</Bul>
               <Bul>Trained coworkers on TypeScript and React; took part in peer code reviews and design discussions.</Bul>
             </ul>
           </div>
@@ -97,7 +96,7 @@ export default function Resume() {
           <h2>Languages &amp; interests</h2>
           <p>English (professional), Hindi (native). Cooking, video games, swimming, chess.</p>
         </section>
-        <p className="fine">Figures marked self-reported are my own reported numbers.</p>
+        
       </article>
     </main>
   )

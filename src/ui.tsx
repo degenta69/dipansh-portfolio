@@ -8,7 +8,6 @@ export const Metric = ({ value, label }: { value: string; label: string }) => (
   <div className="metric">
     <b>{value}</b>
     <span>{label}</span>
-    <i className="selfrep">self-reported</i>
   </div>
 )
 
