@@ -43,11 +43,11 @@ export default function Resume() {
               <Bul>Built and maintained a mobile application (Ionic, with Cordova/Capacitor plugins) and admin portal for connected devices: bug fixing, new functionality, testing and maintenance. Shipped 40+ features from client feedback and fixed 700+ bugs and issues.</Bul>
               <Bul>Integrated native Android features (contacts, Bluetooth/BLE, Wi-Fi) through Cordova and Capacitor plugins; built camera and contacts integrations from scratch; worked on Web Workers and MQTT with AWS IoT.</Bul>
               <Bul>Led R&amp;D for dynamic data visualisation: 6+ static and 5 live-streaming charts; built 50+ reusable Material UI components.</Bul>
-              <Bul>Pioneered an in-house Electron.js desktop tool (packaged for Windows) for serial-port data reading, real-time charting and firmware flashing to microcontrollers, used by the internal hardware team to debug live devices; main/renderer separation over IPC, buffering and Web Workers. Reduced device-debugging time by 40%.</Bul>
+              <Bul>Pioneered an in-house Electron.js desktop tool (packaged for Windows) for serial-port data reading, real-time charting and firmware flashing to microcontrollers, used by the internal hardware team to debug live devices; main/renderer separation over IPC, buffering and Web Workers.</Bul>
               <Bul>Designed back-end architecture, set up AWS services and environments, and built micro-services, APIs and cron jobs on Lambda, EventBridge and SQS; KMS-protected secrets; AWS Parameter Store, SNS and SES. Created the architecture for a reusable AWS Lambda Node.js API template.</Bul>
               <Bul>Built the GRC / compliance platform back end and admin front end: source-agnostic evidence ingestion for multi-account workflows, control mapping, task assignment and auditor collaboration (SOC 2, ISO 27001, HIPAA).</Bul>
               <Bul>Automated CI/CD with GitHub Actions, shell scripts and AWS SAM for micro-services, Lambda and layers; 30% reduction in deployment time.</Bul>
-              <Bul>Developed a custom Prisma/MongoDB wrapper, reducing query time by up to 80%.</Bul>
+              <Bul>Developed a custom Prisma/MongoDB wrapper to simplify database operations.</Bul>
               <Bul>Trained coworkers on TypeScript and React; took part in peer code reviews and design discussions.</Bul>
             </ul>
           </div>

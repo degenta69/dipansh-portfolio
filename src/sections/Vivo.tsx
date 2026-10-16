@@ -193,11 +193,11 @@ export default function Vivo() {
               <li><b>Event-driven workflows</b> with SQS and EventBridge: ingest fast, process async, re-check on schedule.</li>
               <li><b>Source-agnostic evidence ingestion</b> for multi-account setups.</li>
               <li><b>Admin frontend</b> for control status, task assignment and auditor collaboration.</li>
+              <li>I built a custom Prisma/MongoDB data-access wrapper to simplify database operations.</li>
               <li>I also created the architecture for a reusable Lambda API template, with deploy automation through GitHub Actions, shell scripts and AWS SAM.</li>
             </ul>
             <div className="metrics-strip tight">
               <Metric value="30%" label="reduction in deployment time" />
-              <Metric value="up to 80%" label="query-time improvement (custom Prisma/Mongo wrapper)" />
             </div>
             <div className="chips"><Chip tone="lime">Lambda</Chip><Chip tone="lime">SQS</Chip><Chip tone="lime">EventBridge</Chip><Chip tone="lime">KMS</Chip><Chip>TypeScript</Chip><Chip>MongoDB</Chip><Chip>React</Chip></div>
           </div>
@@ -222,7 +222,6 @@ export default function Vivo() {
               <div className="box lime">Main process<small>port I/O · buffer</small></div><span>⇄ IPC</span>
               <div className="box violet">Renderer<small>UI · Web Worker</small></div>
             </div>
-            <div className="metrics-strip tight"><Metric value="40%" label="reduction in device-debugging time" /></div>
           </div>
         </div>
       </article>
