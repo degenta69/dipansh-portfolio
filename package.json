@@ -13,9 +13,11 @@
     "@fontsource-variable/space-grotesk": "^5.2.0",
     "@fontsource-variable/unbounded": "^5.2.0",
     "@fontsource/jetbrains-mono": "^5.2.0",
+    "@types/three": "^0.186.0",
     "gsap": "^3.13.0",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "three": "^0.186.1"
   },
   "devDependencies": {
     "@types/react": "^19.0.0",

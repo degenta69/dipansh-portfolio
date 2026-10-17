@@ -2,7 +2,7 @@ import { useLayoutEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { useMotion } from '../motion'
 import { Chip } from '../ui'
-import PortfolioAvatar from '../PortfolioAvatar'
+import Avatar3D from '../Avatar3D'
 
 export default function Hero() {
   const root = useRef<HTMLElement>(null)
@@ -70,7 +70,7 @@ export default function Hero() {
           </g>
         </svg>
       </figure>
-      <PortfolioAvatar className="hero-avatar" priority delayMs={500} transitionMs={1200} />
+      <Avatar3D className="hero-avatar" priority delayMs={500} transitionMs={1200} />
       <div className="scroll-cue" aria-hidden="true"><span /></div>
     </section>
   )

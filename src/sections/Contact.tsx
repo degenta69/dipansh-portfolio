@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { CONTACT } from '../data'
-import PortfolioAvatar from '../PortfolioAvatar'
+import Avatar3D from '../Avatar3D'
 import { useInView } from '../motion'
 
 export default function Contact() {
@@ -14,7 +14,7 @@ export default function Contact() {
   return (
     <section id="contact" className="sec contact" tabIndex={-1} aria-labelledby="c-h">
       <div className="contact-head">
-        <div ref={portRef} className="contact-portrait"><PortfolioAvatar visible={seen} parallax={10} float={4} transitionMs={1000} /></div>
+        <div ref={portRef} className="contact-portrait"><Avatar3D size="small" visible={seen} parallax={10} float={4} transitionMs={1000} /></div>
         <div>
           <p className="kicker" data-reveal>05 · Transmit</p>
           <h2 id="c-h" data-reveal>Got a system that needs to <span className="hl">move data or money?</span></h2>
