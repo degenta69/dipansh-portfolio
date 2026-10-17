@@ -3,10 +3,12 @@ import gsap from 'gsap'
 import { useMotion } from '../motion'
 import { Chip } from '../ui'
 import { goStation } from '../stage'
+import { THEME_LABEL, useTheme } from '../theme'
 
 export function HeroLeft() {
   const root = useRef<HTMLDivElement>(null)
   const { motion } = useMotion()
+  const theme = useTheme()
   useLayoutEffect(() => {
     if (!motion) return
     const ctx = gsap.context(() => {
@@ -18,7 +20,7 @@ export function HeroLeft() {
   const name = 'Dipansh Saxena'
   return (
     <div ref={root}>
-      <p className="kicker hero-line">Full-stack engineer · Orbit v1</p>
+      <p className="kicker hero-line">Full-stack engineer · {THEME_LABEL[theme]} v1</p>
       <h1 className="hero-name" aria-label={name}>
         {name.split(' ').map((w, wi) => (
           <span className="word" key={wi} aria-hidden="true">

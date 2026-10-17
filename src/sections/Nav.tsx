@@ -3,9 +3,11 @@ import { SECTIONS, CONTACT } from '../data'
 import { useMotion } from '../motion'
 import { goStation, stationIndex, useActiveStation } from '../stage'
 import '../stations'
+import { setTheme, useTheme, THEME_LABEL, type ThemeName } from '../theme'
 
 export default function Nav({ route }: { route: string }) {
   const { motion, toggle } = useMotion()
+  const theme = useTheme()
   const st = useActiveStation()
   const active = [...SECTIONS].reverse().find((x) => stationIndex(x.id) <= st)?.id ?? 'top'
   const [open, setOpen] = useState(false)
@@ -31,7 +33,7 @@ export default function Nav({ route }: { route: string }) {
       <header className="nav">
         <a className="brand" href="#" onClick={(e) => { e.preventDefault(); if (location.hash) location.hash = ''; window.scrollTo({ top: 0, behavior: motion ? 'smooth' : 'auto' }) }} aria-label="Dipansh Saxena, home">
           <svg width="26" height="26" viewBox="0 0 64 64" aria-hidden="true"><path d="M8 44 C22 44 20 20 32 20 S42 44 56 44" fill="none" stroke="currentColor" strokeWidth="6" strokeLinecap="round" /></svg>
-          <span>DS<em>/orbit</em></span>
+          <span>DS<em>/{theme}</em></span>
         </a>
         <button className="burger" aria-expanded={open} aria-controls="nav-links" onClick={() => setOpen(!open)}>{open ? 'Close' : 'Menu'}</button>
         <nav id="nav-links" aria-label="Sections" className={open ? 'open' : ''}>
@@ -43,6 +45,7 @@ export default function Nav({ route }: { route: string }) {
           <a href="#/resume" className={route === 'resume' ? 'on' : ''} onClick={() => setOpen(false)}>Résumé</a>
         </nav>
         <div className="nav-tools">
+          <ThemeSwitch />
           <button className="ghost" onClick={() => setPal(true)} aria-label="Open command palette"><kbd>⌘K</kbd></button>
           <button className="ghost" onClick={toggle} aria-pressed={!motion} title="Toggle animation">{motion ? 'Motion on' : 'Motion off'}</button>
         </div>
@@ -53,12 +56,29 @@ export default function Nav({ route }: { route: string }) {
   )
 }
 
+function ThemeSwitch() {
+  const theme = useTheme()
+  const pick = (t: ThemeName) => (e: React.MouseEvent<HTMLButtonElement>) => {
+    const r = e.currentTarget.getBoundingClientRect()
+    setTheme(t, { x: r.left + r.width / 2, y: r.top + r.height / 2 })
+  }
+  return (
+    <div className="theme-switch" role="group" aria-label="Visual theme">
+      {(['atlas', 'orbit'] as ThemeName[]).map((t) => (
+        <button key={t} className={theme === t ? 'on' : ''} aria-pressed={theme === t} onClick={pick(t)} title={`${THEME_LABEL[t]} theme`}>{THEME_LABEL[t]}</button>
+      ))}
+    </div>
+  )
+}
+
 function Palette({ go, close }: { go: (id: string) => void; close: () => void }) {
   const [q, setQ] = useState('')
   const ref = useRef<HTMLInputElement>(null)
   useEffect(() => { ref.current?.focus() }, [])
   const cmds = [
     ...[...SECTIONS.map((s) => ({ label: s.label, id: s.id })), { label: 'KanzPay', id: 'kanzpay' }, { label: 'SafeGold', id: 'safegold' }, { label: 'MBME · TrySpare · gateway rails', id: 'gateway' }, { label: 'GRC platform', id: 'grc' }, { label: 'Electron utility', id: 'electron' }, { label: 'Ionic app', id: 'ionic' }].map((s) => ({ label: `Go to ${s.label}`, run: () => go(s.id) })),
+    { label: 'Theme: Atlas', run: () => { close(); setTheme('atlas', { x: innerWidth / 2, y: 80 }) } },
+    { label: 'Theme: Orbit', run: () => { close(); setTheme('orbit', { x: innerWidth / 2, y: 80 }) } },
     { label: 'Open résumé', run: () => { close(); location.hash = '#/resume' } },
     { label: 'Copy email', run: () => { navigator.clipboard?.writeText(CONTACT.email); close() } },
     { label: 'Open GitHub', run: () => { window.open(CONTACT.github, '_blank', 'noopener'); close() } },

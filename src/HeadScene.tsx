@@ -1,11 +1,12 @@
 import { useEffect, useRef } from 'react'
 import {
   AmbientLight, Box3, Bone, DirectionalLight, DoubleSide, FrontSide, HemisphereLight, MathUtils, Mesh, MeshStandardMaterial,
-  Object3D, PerspectiveCamera, Plane, Scene, SkinnedMesh, SRGBColorSpace, Vector3, WebGLRenderer, type Material, type Texture,
+  Object3D, PerspectiveCamera, Color, Plane, Scene, SkinnedMesh, SRGBColorSpace, Vector3, WebGLRenderer, type Material, type Texture,
 } from 'three'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
 import { MeshoptDecoder } from 'three/examples/jsm/libs/meshopt_decoder.module.js'
 import { addTicker, stage } from './stage'
+import { THEME_LIGHTS, getTheme, subscribeTheme } from './theme'
 
 declare const __HEAD_GLB__: boolean
 const HEAD_GLB = '/avatar/avatar-head.glb'      // preferred: head-only rigged model (build-time presence check, see vite.config.ts)
@@ -44,14 +45,34 @@ export default function HeadScene({ onReady, onError }: Props) {
 
     const scene = new Scene()
     const camera = new PerspectiveCamera(20, 1, 0.02, 20)
-    scene.add(new HemisphereLight(0xdfe9ff, 0x1a1236, 1.25), new AmbientLight(0xffffff, 0.5))
+    const hemi = new HemisphereLight(0xffffff, 0x000000, 1.25), amb = new AmbientLight(0xffffff, 0.5)
     const key = new DirectionalLight(0xfff1e2, 1.2); key.position.set(0.7, 1.3, 1.8)
-    const rimC = new DirectionalLight(0x4de1ff, 2.2); rimC.position.set(-1.8, 1.0, -1.1)
-    const rimM = new DirectionalLight(0xff5bd1, 0.9); rimM.position.set(1.9, 0.5, -1.3)
-    scene.add(key, rimC, rimM)
+    const rimA = new DirectionalLight(0xffffff, 2); rimA.position.set(-1.8, 1.0, -1.1)
+    const rimB = new DirectionalLight(0xffffff, 1); rimB.position.set(1.9, 0.5, -1.3)
+    scene.add(hemi, amb, key, rimA, rimB)
+    // theme lights: lerp towards the active theme's rim colours (Orbit cyan/magenta, Atlas violet/lime)
+    const L0 = THEME_LIGHTS[getTheme()]
+    hemi.color.setHex(L0.hemiSky); hemi.groundColor.setHex(L0.hemiGround); hemi.intensity = L0.hemiI
+    rimA.color.setHex(L0.rimA); rimA.intensity = L0.rimAI; rimB.color.setHex(L0.rimB); rimB.intensity = L0.rimBI; key.intensity = L0.keyI
+    const tgt = { hs: new Color(L0.hemiSky), hg: new Color(L0.hemiGround), a: new Color(L0.rimA), b: new Color(L0.rimB), hemiI: L0.hemiI, aI: L0.rimAI, bI: L0.rimBI, kI: L0.keyI }
+    let lightsMoving = false
+    const offTheme = subscribeTheme((t) => {
+      const L = THEME_LIGHTS[t]
+      tgt.hs.setHex(L.hemiSky); tgt.hg.setHex(L.hemiGround); tgt.a.setHex(L.rimA); tgt.b.setHex(L.rimB)
+      tgt.hemiI = L.hemiI; tgt.aI = L.rimAI; tgt.bI = L.rimBI; tgt.kI = L.keyI; lightsMoving = true
+    })
+    const stepLights = (dt: number) => {
+      const k = 1 - Math.pow(0.002, dt)   // ~0.8s settle, matches the page transition
+      hemi.color.lerp(tgt.hs, k); hemi.groundColor.lerp(tgt.hg, k); rimA.color.lerp(tgt.a, k); rimB.color.lerp(tgt.b, k)
+      hemi.intensity += (tgt.hemiI - hemi.intensity) * k; rimA.intensity += (tgt.aI - rimA.intensity) * k
+      rimB.intensity += (tgt.bI - rimB.intensity) * k; key.intensity += (tgt.kI - key.intensity) * k
+      const dc = Math.abs(rimA.color.r - tgt.a.r) + Math.abs(rimA.color.g - tgt.a.g) + Math.abs(rimA.color.b - tgt.a.b) + Math.abs(rimB.color.r - tgt.b.r) + Math.abs(rimB.color.g - tgt.b.g)
+      if (dc < 0.004 && Math.abs(tgt.aI - rimA.intensity) < 0.01 && Math.abs(tgt.kI - key.intensity) < 0.01) lightsMoving = false
+    }
 
     let root: Object3D | null = null, head: Bone | null = null, neck: Bone | null = null
-    let eyeL: Bone | null = null, eyeR: Bone | null = null
+    let eyeL: Bone | null = null, eyeR: Bone | null = null, jawBone: Bone | null = null
+    const jawRest = new Vector3()
     const rest = { h: new Vector3(), n: new Vector3(), el: new Vector3(), er: new Vector3() }
     const morphs: Record<string, MorphRef[]> = {}
     const setM = (k: string, v: number) => { const a = morphs[k]; if (a) for (let i = 0; i < a.length; i++) a[i].mesh.morphTargetInfluences![a[i].idx] = v }
@@ -73,6 +94,7 @@ export default function HeadScene({ onReady, onError }: Props) {
     const tick = (now: number, dt: number) => {
       if (!root || disposed || !visible || document.hidden) return
       const k = 1 - Math.pow(0.0015, dt)
+      if (lightsMoving) { stepLights(dt); dirty = true }
       const tx = clamp(stage.px * 1.0, -1, 1), ty = clamp(stage.py * 1.0, -1, 1)
       const dx = tx - cur.x, dy = ty - cur.y, dl = stage.look - cur.look
       cur.x += dx * k; cur.y += dy * k; cur.look += dl * (1 - Math.pow(0.01, dt))
@@ -101,6 +123,7 @@ export default function HeadScene({ onReady, onError }: Props) {
       setM('smile', smile); setM('smileL', smile); setM('smileR', smile); setM('blink', blink)
       setM('brow', clamp(surprise * 0.8 + (stage.hover ? 0.25 : 0) + nod * 0.2, 0, 0.9))
       setM('jaw', surprise * 0.22)
+      if (jawBone) jawBone.rotation.set(jawRest.x + surprise * 0.18, jawRest.y, jawRest.z)
       root.rotation.y = orbit
       root.position.y = baseY + Math.sin(now / 1900) * 0.0022
       lastRender = now; dirty = false
@@ -117,6 +140,7 @@ export default function HeadScene({ onReady, onError }: Props) {
     }
     let baseY = 0
     const off = addTicker(tick)
+    if (new URLSearchParams(location.search).has('qa')) (window as unknown as { __qa?: unknown }).__qa = { blinkNow: () => { blinkStart = performance.now(); nextBlink = performance.now() + 8000 }, stage, morph: (k: string) => { const m = morphs[k]?.[0]; return m ? m.mesh.morphTargetInfluences![m.idx] : null } }
 
     // ── load: head-only model if it shipped with the build, else the bust (cropped) ──
     const loader = new GLTFLoader().setMeshoptDecoder(MeshoptDecoder)
@@ -134,6 +158,7 @@ export default function HeadScene({ onReady, onError }: Props) {
       head = find(/^(.*[:_.])?head$/i) || find(/head/i, /top|end|hair|neck/i)
       neck = find(/^(.*[:_.])?neck(\d)?$/i) || find(/neck/i, /end|top/i)
       eyeL = find(/eye[._ -]?l|left[._ -]?eye|eye_?left/i); eyeR = find(/eye[._ -]?r|right[._ -]?eye|eye_?right/i)
+      jawBone = find(/^(.*[:_.])?jaw$/i); if (jawBone) jawRest.copy(jawBone.rotation as unknown as Vector3)
       if (head) rest.h.copy(head.rotation as unknown as Vector3)
       if (neck) rest.n.copy(neck.rotation as unknown as Vector3)
       if (eyeL) rest.el.copy(eyeL.rotation as unknown as Vector3)
@@ -144,6 +169,8 @@ export default function HeadScene({ onReady, onError }: Props) {
         const lower: Record<string, number> = {}; for (const [n, i] of Object.entries(dict)) lower[n.toLowerCase()] = i
         for (const [key2, names] of Object.entries(ALIASES)) for (const n of names) if (n in lower) { (morphs[key2] ||= []).push({ mesh: m, idx: lower[n] }); break }
       }
+      jawBone = morphs.jaw ? null : jawBone
+      if (morphs.lookL || morphs.lookR) { eyeL = null; eyeR = null }
       // if only per-side blink exists, drive both from the generic channel
       if (!morphs.blink) morphs.blink = [...(morphs.blinkL || []), ...(morphs.blinkR || [])]
       // light materials: standard only, no clearcoat/transmission/transparent sorting
@@ -152,11 +179,11 @@ export default function HeadScene({ onReady, onError }: Props) {
         const mats = (Array.isArray(m.material) ? m.material : [m.material]) as Material[]
         const out = mats.map((src: any) => {
           let n = seen.get(src); if (n) return n
-          const isHair = /hair|strand/i.test(src.name || '')
+          const isHair = /hair|strand|lash/i.test(src.name || '')
           n = new MeshStandardMaterial({
             name: src.name, color: src.color, map: src.map, normalMap: src.normalMap, roughnessMap: src.roughnessMap, metalnessMap: src.metalnessMap,
             roughness: src.roughness ?? 0.7, metalness: src.metalness ?? 0, vertexColors: !!src.vertexColors, emissive: src.emissive, emissiveMap: src.emissiveMap,
-            side: isHair ? DoubleSide : FrontSide, transparent: false, alphaTest: src.alphaMode === 'MASK' ? src.alphaTest : 0,
+            side: isHair ? DoubleSide : FrontSide, alphaTest: src.alphaTest || 0, transparent: !!src.transparent && !src.alphaTest,
           })
           if (src.normalScale) n.normalScale.copy(src.normalScale)
           ;[n.map, n.normalMap, n.roughnessMap].forEach((t) => { if (t) (t as Texture).anisotropy = 2 })
@@ -178,7 +205,7 @@ export default function HeadScene({ onReady, onError }: Props) {
       if (hasTorso) {
         clip.set(new Vector3(0, 1, 0), -cutY)           // keep y ≥ cutY; the canvas CSS mask fades the cut
         frameTop = box.max.y; frameBottom = cutY
-      } else { clip.set(new Vector3(0, 1, 0), 1e6); frameTop = box.max.y; frameBottom = box.min.y }
+      } else { clip.set(new Vector3(0, 1, 0), 1e6); frameTop = box.max.y; frameBottom = Math.max(box.min.y, eyeY - topToEye * 1.9) }  // head-only: head + a short neck; CSS mask fades the rest
       const hgt = frameTop - frameBottom
       const mid = (frameTop + frameBottom) / 2 + hgt * 0.02
       const dist = (hgt * 1.06 / 2) / Math.tan(MathUtils.degToRad(camera.fov / 2))
@@ -191,12 +218,12 @@ export default function HeadScene({ onReady, onError }: Props) {
     const fail = () => { if (!disposed) cb.current.onError() }
     const loadFull = () => loader.load(FULL_GLB, (g) => onLoad(g, true), undefined, fail)
     const dbg = new URLSearchParams(location.search).get('glb')   // QA override, same-origin /avatar/*.glb only
-    if (dbg && /^\/avatar\/[\w.-]+\.glb$/.test(dbg)) loader.load(dbg, (g) => onLoad(g, true), undefined, fail)
-    else if (__HEAD_GLB__) loader.load(HEAD_GLB, (g) => onLoad(g, true), undefined, loadFull)
+    if (dbg && /^\/avatar\/[\w.-]+\.glb$/.test(dbg)) loader.load(dbg, (g) => onLoad(g, !/head/i.test(dbg)), undefined, fail)
+    else if (__HEAD_GLB__) loader.load(HEAD_GLB, (g) => onLoad(g, false), undefined, loadFull)
     else loadFull()
 
     return () => {
-      disposed = true; off(); ro.disconnect(); io.disconnect()
+      disposed = true; off(); offTheme(); ro.disconnect(); io.disconnect()
       root?.traverse((o) => {
         const m = o as Mesh
         if (m.isMesh) { m.geometry.dispose(); (Array.isArray(m.material) ? m.material : [m.material]).forEach((mt: any) => { Object.values(mt).forEach((v: any) => v?.isTexture && v.dispose()); mt.dispose() }) }

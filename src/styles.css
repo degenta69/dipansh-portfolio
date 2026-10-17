@@ -1,13 +1,6 @@
-/* Orbit theme: deep-space navy, cyan hologram primary, magenta + amber + violet accents.
-   (variable names --lime/--hot are kept from the old theme so the demo components keep working; --lime is now hologram cyan) */
-:root{
-  --bg:#04060d; --bg2:#070b16; --card:#0a1020; --line:#1b2a47; --text:#e8f0ff; --dim:#8da2c6;
-  --lime:#5ae6ff; --hot:#ff5bd1; --violet:#9d8cff; --gold:#ffc857;
-  --disp:'Chakra Petch',system-ui,sans-serif;
-  --body:'Space Grotesk Variable','Space Grotesk',system-ui,sans-serif;
-  --mono:'JetBrains Mono',ui-monospace,monospace;
-  --r:4px;
-}
+/* Design tokens live in stage.css under html[data-theme=orbit|atlas]. Variable names --lime/--hot are historical:
+   --lime is each theme's primary accent (Atlas lime / Orbit hologram cyan). */
+:root{--mono:'JetBrains Mono',ui-monospace,monospace;--body:'Space Grotesk Variable','Space Grotesk',system-ui,sans-serif}
 *{box-sizing:border-box}
 html{scroll-behavior:auto;-webkit-text-size-adjust:100%}
 body{margin:0;background:var(--bg);color:var(--text);font-family:var(--body);font-size:17px;line-height:1.6;overflow-x:hidden}
@@ -27,7 +20,7 @@ button{cursor:pointer}
 em{font-style:normal;color:var(--lime)}
 
 /* nav */
-.nav{position:fixed;left:0;right:0;top:0;z-index:50;display:flex;align-items:center;gap:20px;padding:12px clamp(16px,4vw,48px);background:rgba(4,6,13,.92);border-bottom:1px solid var(--line)}
+.nav{position:fixed;left:0;right:0;top:0;z-index:50;display:flex;align-items:center;gap:20px;padding:12px clamp(16px,4vw,48px);background:var(--nav-bg);border-bottom:1px solid var(--line)}
 .brand{display:flex;align-items:center;gap:8px;text-decoration:none;font-family:var(--disp);font-weight:700;color:var(--lime)}
 .brand em{color:var(--dim);font-weight:400;font-style:normal}
 .nav nav{display:flex;gap:4px;margin-left:auto}
@@ -51,8 +44,8 @@ kbd{font-family:var(--mono);font-size:.8rem}
 .hero-chips,.chips{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 18px}
 .hero-cta{display:flex;gap:12px;flex-wrap:wrap}
 .chip{font-family:var(--mono);font-size:.76rem;padding:4px 11px;border:1px solid var(--line);border-radius:4px;color:var(--dim);background:rgba(255,255,255,.02)}
-.chip.lime{color:var(--lime);border-color:rgba(90,230,255,.4)} .chip.hot{color:var(--hot);border-color:rgba(255,91,209,.45)}
-.chip.violet{color:var(--violet);border-color:rgba(157,140,255,.45)} .chip.gold{color:var(--gold);border-color:rgba(255,200,87,.45)}
+.chip.lime{color:var(--lime);border-color:rgba(var(--lime-rgb),.4)} .chip.hot{color:var(--hot);border-color:rgba(var(--hot-rgb),.45)}
+.chip.violet{color:var(--violet);border-color:rgba(var(--violet-rgb),.45)} .chip.gold{color:var(--gold);border-color:rgba(var(--gold-rgb),.45)}
 .hl{color:var(--lime)} .hl.gold{color:var(--gold)}
 .lede{font-size:1.02rem;color:#c9d6ee;max-width:36em;margin-bottom:18px}
 
@@ -224,7 +217,7 @@ select,input[type=number],.console-in input{background:var(--bg);border:1px soli
   .burger{display:block}
   .nav nav{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;background:var(--bg);padding:12px;border-bottom:1px solid var(--line)}
   .nav nav.open{display:flex}
-  .nav-tools .ghost:first-child{display:none}
+  .nav-tools .ghost[aria-label]{display:none}
   .nav{gap:10px}
   .story-head{flex-direction:column;gap:8px}
   .skills-dl{grid-template-columns:1fr}
