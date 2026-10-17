@@ -17,7 +17,7 @@ export const Chip = ({ children, tone }: { children: ReactNode; tone?: 'lime' | 
 
 export function StoryHead({ n, kicker, title, pitch }: { n: string; kicker: string; title: string; pitch: ReactNode }) {
   return (
-    <header className="story-head" data-reveal>
+    <header className="story-head">
       <span className="story-n" aria-hidden="true">{n}</span>
       <div>
         <p className="kicker">{kicker}</p>

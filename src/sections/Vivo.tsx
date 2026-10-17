@@ -175,77 +175,74 @@ function IotPath() {
   )
 }
 
-export default function Vivo() {
-  return (
-    <section id="vivo" className="sec vivo" tabIndex={-1} aria-labelledby="vivo-h">
-      <p className="kicker" data-reveal>02 · Vivo Collaboration Solution · May 2022 – Jan 2026</p>
-      <h2 id="vivo-h" data-reveal>Three stories. <span className="hl">One engineer inside each.</span></h2>
-      <p className="lede" data-reveal>Over three and a half years I moved from front-end to owning whole systems. Here are the three stories, each with something you can poke.</p>
-
-      <article className="story" aria-labelledby="s1">
-        <StoryHead n="1" kicker="Compliance · serverless" title="GRC / compliance platform" pitch="Turn messy evidence from many cloud accounts into audit-ready control status for SOC 2, ISO 27001 and HIPAA." />
-        <h4 id="s1" className="sr-only">GRC platform story</h4>
-        <div className="story-body">
-          <GrcDemo />
-          <div className="story-copy" data-reveal>
-            <ul className="tick">
-              <li><b>Serverless backend</b> on AWS Lambda, with APIs for ingestion, control mapping, tasks and auditors.</li>
-              <li><b>Event-driven workflows</b> with SQS and EventBridge: ingest fast, process async, re-check on schedule.</li>
-              <li><b>Source-agnostic evidence ingestion</b> for multi-account setups.</li>
-              <li><b>Admin frontend</b> for control status, task assignment and auditor collaboration.</li>
-              <li>I built a custom Prisma/MongoDB data-access wrapper to simplify database operations.</li>
-              <li>I also created the architecture for a reusable Lambda API template, with deploy automation through GitHub Actions, shell scripts and AWS SAM.</li>
-            </ul>
-            <div className="metrics-strip tight">
-              <Metric value="30%" label="reduction in deployment time" />
-            </div>
-            <div className="chips"><Chip tone="lime">Lambda</Chip><Chip tone="lime">SQS</Chip><Chip tone="lime">EventBridge</Chip><Chip tone="lime">KMS</Chip><Chip>TypeScript</Chip><Chip>MongoDB</Chip><Chip>React</Chip></div>
-          </div>
-        </div>
-      </article>
-
-      <article className="story" aria-labelledby="s2">
-        <StoryHead n="2" kicker="Desktop · hardware" title="Electron real-time hardware debugging utility" pitch="A Windows desktop tool that lets engineers watch a device talk, live, instead of guessing from logs." />
-        <h4 id="s2" className="sr-only">Electron utility story</h4>
-        <div className="story-body">
-          <SerialConsole />
-          <div className="story-copy" data-reveal>
-            <ul className="tick">
-              <li>Reads <b>serial ports</b> in real time and charts the stream.</li>
-              <li><b>Main / renderer separation</b> over IPC: the main process owns the port, the renderer only paints.</li>
-              <li><b>Buffering + Web Workers</b> keep the UI smooth when data arrives faster than a screen can repaint.</li>
-              <li><b>Packaged for Windows</b> and used by the internal hardware team.</li>
-              <li>The tool also flashed firmware to microcontrollers.</li>
-            </ul>
-            <div className="arch" aria-label="Electron architecture">
-              <div className="box hot">Serial port</div><span>→</span>
-              <div className="box lime">Main process<small>port I/O · buffer</small></div><span>⇄ IPC</span>
-              <div className="box violet">Renderer<small>UI · Web Worker</small></div>
-            </div>
-          </div>
-        </div>
-      </article>
-
-      <article className="story" aria-labelledby="s3">
-        <StoryHead n="3" kicker="Mobile · BLE · cloud" title="Ionic mobile app: BLE, Wi-Fi, native features" pitch="The phone is the bridge between a physical device and the cloud. I worked on both ends of that bridge." />
-        <h4 id="s3" className="sr-only">Ionic app story</h4>
-        <div className="story-body">
-          <IotPath />
-          <div className="story-copy" data-reveal>
-            <ul className="tick">
-              <li><b>Ionic app</b> with BLE, Wi-Fi and native device features via Cordova and Capacitor plugins.</li>
-              <li>I built the <b>camera</b> and <b>contacts</b> integrations from scratch.</li>
-              <li><b>Workers and MQTT</b> work for background processing and device messaging, via AWS IoT.</li>
-              <li><b>Dynamic data visualisation R&amp;D</b>: static history charts plus streaming live charts.</li>
-              <li>Matching admin portal on the web, with reusable Material UI components.</li>
-            </ul>
-            <div className="metrics-strip tight">
-              <Metric value="6+ static · 5 live" label="charts built during visualisation R&D" />
-              <Metric value="50+" label="reusable Material UI components" />
-            </div>
-          </div>
-        </div>
-      </article>
-    </section>
-  )
+export function VivoIntro() {
+  return (<>
+    <p className="kicker">02 · Vivo Collaboration Solution · May 2022 – Jan 2026</p>
+    <h2 id="vivo-h">Three stories. <span className="hl">One engineer inside each.</span></h2>
+    <p className="lede">Over three and a half years I moved from front-end to owning whole systems. Here are the three stories, each with something you can poke.</p>
+  </>)
 }
+
+export function Story1Left() {
+  return (<>
+    <StoryHead n="1" kicker="Compliance · serverless" title="GRC / compliance platform" pitch="Turn messy evidence from many cloud accounts into audit-ready control status for SOC 2, ISO 27001 and HIPAA." />
+    <div className="story-copy">
+      <ul className="tick">
+        <li><b>Serverless backend</b> on AWS Lambda, with APIs for ingestion, control mapping, tasks and auditors.</li>
+        <li><b>Event-driven workflows</b> with SQS and EventBridge: ingest fast, process async, re-check on schedule.</li>
+        <li><b>Source-agnostic evidence ingestion</b> for multi-account setups.</li>
+        <li><b>Admin frontend</b> for control status, task assignment and auditor collaboration.</li>
+        <li>I built a custom Prisma/MongoDB data-access wrapper to simplify database operations.</li>
+        <li>I also created the architecture for a reusable Lambda API template, with deploy automation through GitHub Actions, shell scripts and AWS SAM.</li>
+      </ul>
+    </div>
+  </>)
+}
+export function Story1Right() {
+  return (<>
+    <GrcDemo />
+    <div className="metrics-strip tight"><Metric value="30%" label="reduction in deployment time" /></div>
+    <div className="chips"><Chip tone="lime">Lambda</Chip><Chip tone="lime">SQS</Chip><Chip tone="lime">EventBridge</Chip><Chip tone="lime">KMS</Chip><Chip>TypeScript</Chip><Chip>MongoDB</Chip><Chip>React</Chip></div>
+  </>)
+}
+
+export function Story2Left() {
+  return (<>
+    <StoryHead n="2" kicker="Desktop · hardware" title="Electron real-time hardware debugging utility" pitch="A Windows desktop tool that lets engineers watch a device talk, live, instead of guessing from logs." />
+    <div className="story-copy">
+      <ul className="tick">
+        <li>Reads <b>serial ports</b> in real time and charts the stream.</li>
+        <li><b>Main / renderer separation</b> over IPC: the main process owns the port, the renderer only paints.</li>
+        <li><b>Buffering + Web Workers</b> keep the UI smooth when data arrives faster than a screen can repaint.</li>
+        <li><b>Packaged for Windows</b> and used by the internal hardware team.</li>
+        <li>The tool also flashed firmware to microcontrollers.</li>
+      </ul>
+      <div className="arch" aria-label="Electron architecture">
+        <div className="box hot">Serial port</div><span>→</span>
+        <div className="box lime">Main process<small>port I/O · buffer</small></div><span>⇄ IPC</span>
+        <div className="box violet">Renderer<small>UI · Web Worker</small></div>
+      </div>
+    </div>
+  </>)
+}
+export function Story2Right() { return <SerialConsole /> }
+
+export function Story3Left() {
+  return (<>
+    <StoryHead n="3" kicker="Mobile · BLE · cloud" title="Ionic mobile app: BLE, Wi-Fi, native features" pitch="The phone is the bridge between a physical device and the cloud. I worked on both ends of that bridge." />
+    <div className="story-copy">
+      <ul className="tick">
+        <li><b>Ionic app</b> with BLE, Wi-Fi and native device features via Cordova and Capacitor plugins.</li>
+        <li>I built the <b>camera</b> and <b>contacts</b> integrations from scratch.</li>
+        <li><b>Workers and MQTT</b> work for background processing and device messaging, via AWS IoT.</li>
+        <li><b>Dynamic data visualisation R&amp;D</b>: static history charts plus streaming live charts.</li>
+        <li>Matching admin portal on the web, with reusable Material UI components.</li>
+      </ul>
+      <div className="metrics-strip tight">
+        <Metric value="6+ static · 5 live" label="charts built during visualisation R&D" />
+        <Metric value="50+" label="reusable Material UI components" />
+      </div>
+    </div>
+  </>)
+}
+export function Story3Right() { return <IotPath /> }

@@ -12,6 +12,7 @@ export const SECTIONS = [
   { id: 'vivo', label: 'Vivo' },
   { id: 'mobcoder', label: 'Payments' },
   { id: 'skills', label: 'Skills' },
+  { id: 'dossier', label: 'Résumé file' },
   { id: 'contact', label: 'Contact' },
 ]
 

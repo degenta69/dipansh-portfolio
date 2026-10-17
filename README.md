@@ -1,12 +1,17 @@
-# Signal Atlas Lite — Dipansh Saxena portfolio (v0.1)
+# Orbit — Dipansh Saxena portfolio (v1, avatar-centred redesign)
 
-Vite + React 19 + TypeScript, GSAP/ScrollTrigger. Static output (`dist/`), deployable on free Vercel (framework preset: Vite, build `npm run build`, output `dist`). Not deployed; local git only.
+Vite + React 19 + TypeScript, GSAP, three.js (all MIT). Static output (`dist/`). Local git only.
 
     npm install
-    npm run dev          # http://localhost:5173
-    npm run build        # type-check + production build
-    npm run serve        # static preview of dist on :4173
-    node qa.mjs          # Playwright QA + screenshots (needs preview running)
+    npm run dev | build | preview
+
+**Concept.** A rigged 3D head is a fixed stage in the centre of the viewport. Each page section is an "orbit station": a left and a right HUD panel that fly in along an orbital arc, dock beside the head, then swing behind it. Scrolling drives one rAF loop (transform/opacity only). The head tracks the cursor, turns toward the docked panel, blinks, smiles on hover and reacts to clicks and station changes. A ring of 13 station nodes circles the head.
+
+**Head model.** `public/avatar/avatar-head.glb` (head-only rigged GLB) is used automatically if it exists at dev/build start; otherwise `public/avatar/avatar.glb` is loaded and cropped at the neck (clipping plane + CSS fade). Bones/morphs are found by name/alias (head, neck, eye.L/R; blink, smile, jawOpen, look*, browRaise, ARKit names). Poster: `avatar-approved-cutout.webp` shows instantly and is the fallback.
+
+**Static fallback** (portrait + CSS-only orbit): reduced motion / Motion off, touch or <760px, ≤4 cores or ≤4GB, no WebGL, or load failure. Force with `?avatar=static` / `?avatar=3d`.
+
+`scripts/optimize-avatar.mjs` documents the GLB diet (split morph targets off the hair, simplify hair, resize textures, meshopt).
 
 Routes: `/` (single page) and `#/resume` (printable résumé, hash route so no rewrites needed).
 

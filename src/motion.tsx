@@ -30,16 +30,20 @@ export function MotionProvider({ children }: { children: ReactNode }) {
   return <MotionCtx.Provider value={{ motion, toggle, systemReduced }}>{children}</MotionCtx.Provider>
 }
 
-/** true while the element is on screen (used to pause demos off-screen) */
+/** Set by each orbit station: true while that station is the docked one. */
+export const StationActive = createContext<boolean | null>(null)
+
+/** true while the element is "live": the docked station's content, or (outside stations) on screen. */
 export function useInView<T extends Element>(margin = '0px') {
   const ref = useRef<T>(null)
+  const act = useContext(StationActive)
   const [inView, setIn] = useState(false)
   useEffect(() => {
     const el = ref.current
-    if (!el) return
+    if (!el || act !== null) return
     const io = new IntersectionObserver(([e]) => setIn(e.isIntersecting), { rootMargin: margin })
     io.observe(el)
     return () => io.disconnect()
-  }, [margin])
-  return [ref, inView] as const
+  }, [margin, act])
+  return [ref, act !== null ? act : inView] as const
 }

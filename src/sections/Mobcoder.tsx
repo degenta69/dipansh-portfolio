@@ -136,54 +136,46 @@ function GatewayWall() {
   )
 }
 
-export default function Mobcoder() {
-  return (
-    <section id="mobcoder" className="sec pay" tabIndex={-1} aria-labelledby="pay-h">
-      <p className="kicker" data-reveal>03 · Mobcoder Technology · Feb 2026 – now</p>
-      <h2 id="pay-h" data-reveal>Money moves. <span className="hl gold">The ledger must not lie.</span></h2>
-      <p className="lede" data-reveal>I moved onto the payments platform and built it from the ground up: KanzPay, its gold layer, and the gateway wall that sits under it.</p>
-
-      <article className="story" aria-labelledby="k1">
-        <StoryHead n="A" kicker="Payment platform · pre-launch" title="KanzPay" pitch={<>A payment platform that takes a buyer's payment through a rail, into a settlement ledger, and out to the seller. <b>Pre-launch</b>: not live yet. I built it from scratch. The Flutter seller app is a sibling project and not mine.</>} />
-        <h4 id="k1" className="sr-only">KanzPay</h4>
-        <div className="story-body">
-          <KanzFlow />
-          <div className="story-copy" data-reveal>
-            <ul className="tick">
-              <li><b>Minor-unit money model.</b> Whole integers for commissions, tax and settlement.</li>
-              <li><b>Daily aggregate settlements</b> across INR/AED, with configurable payout schedules.</li>
-              <li><b>Split payments, loyalty earn/redeem</b> and <b>buyer-first refunds</b> with seller recovery.</li>
-              <li><b>Hardening:</b> multi-phase security reviews covering auth, signed webhooks, idempotency and payload encryption.</li>
-              <li>Extracted a reusable <b>OTP / JWT / Redis auth service</b> for multi-app identity.</li>
-            </ul>
-          </div>
-        </div>
-      </article>
-
-      <article className="story" aria-labelledby="g1">
-        <StoryHead n="B" kicker="Digital gold · integration layer" title="SafeGold vault" pitch="Gold is held in micrograms, so every balance is a whole number. SafeGold is the digital-gold provider; I built the service and SDK that talk to it, so apps never call it directly." />
-        <h4 id="g1" className="sr-only">SafeGold</h4>
-        <div className="story-body">
-          <Vault />
-          <div className="story-copy" data-reveal>
-            <ul className="tick">
-              <li><b>Custodial and KYC wallets</b> held in micrograms.</li>
-              <li><b>BullMQ lanes</b> for reward, buy and transfer jobs, with dead-letter handling and alerts.</li>
-              <li><b>Rate-lock before buy</b>, idempotency keys, reconciliation and a nightly sweep.</li>
-              <li>Buy / sell / gift and KYC flows through the SafeGold integration.</li>
-            </ul>
-          </div>
-        </div>
-      </article>
-
-      <article className="story" aria-labelledby="w1">
-        <StoryHead n="C" kicker="Gateway layer" title="One request. Many rails." pitch="A port-and-adapter payment layer: the order logic speaks one language, and each provider gets its own plug." />
-        <h4 id="w1" className="sr-only">Gateway wall</h4>
-        <div className="story-body single">
-          <GatewayWall />
-        </div>
-        <div className="chips" data-reveal><Chip tone="gold">Lean</Chip><Chip tone="gold">N-Genius</Chip><Chip tone="gold">Razorpay</Chip><Chip tone="gold">MBME Pay (integration)</Chip><Chip tone="gold">TrySpare (integration)</Chip></div>
-      </article>
-    </section>
-  )
+export function PayIntro() {
+  return (<>
+    <p className="kicker">03 · Mobcoder Technology · Feb 2026 – now</p>
+    <h2 id="pay-h">Money moves. <span className="hl gold">The ledger must not lie.</span></h2>
+    <p className="lede">I moved onto the payments platform and built it from the ground up: KanzPay, its gold layer, and the gateway wall that sits under it.</p>
+  </>)
 }
+export function KanzLeft() {
+  return (<>
+    <StoryHead n="A" kicker="Payment platform · pre-launch" title="KanzPay" pitch={<>A payment platform that takes a buyer's payment through a rail, into a settlement ledger, and out to the seller. <b>Pre-launch</b>: not live yet. I built it from scratch. The Flutter seller app is a sibling project and not mine.</>} />
+    <div className="story-copy">
+      <ul className="tick">
+        <li><b>Minor-unit money model.</b> Whole integers for commissions, tax and settlement.</li>
+        <li><b>Daily aggregate settlements</b> across INR/AED, with configurable payout schedules.</li>
+        <li><b>Split payments, loyalty earn/redeem</b> and <b>buyer-first refunds</b> with seller recovery.</li>
+        <li><b>Hardening:</b> multi-phase security reviews covering auth, signed webhooks, idempotency and payload encryption.</li>
+        <li>Extracted a reusable <b>OTP / JWT / Redis auth service</b> for multi-app identity.</li>
+      </ul>
+    </div>
+  </>)
+}
+export function KanzRight() { return <KanzFlow /> }
+export function GoldLeft() {
+  return (<>
+    <StoryHead n="B" kicker="Digital gold · integration layer" title="SafeGold vault" pitch="Gold is held in micrograms, so every balance is a whole number. SafeGold is the digital-gold provider; I built the service and SDK that talk to it, so apps never call it directly." />
+    <div className="story-copy">
+      <ul className="tick">
+        <li><b>Custodial and KYC wallets</b> held in micrograms.</li>
+        <li><b>BullMQ lanes</b> for reward, buy and transfer jobs, with dead-letter handling and alerts.</li>
+        <li><b>Rate-lock before buy</b>, idempotency keys, reconciliation and a nightly sweep.</li>
+        <li>Buy / sell / gift and KYC flows through the SafeGold integration.</li>
+      </ul>
+    </div>
+  </>)
+}
+export function GoldRight() { return <Vault /> }
+export function GatewayLeft() {
+  return (<>
+    <StoryHead n="C" kicker="Gateway layer" title="One request. Many rails." pitch="A port-and-adapter payment layer: the order logic speaks one language, and each provider gets its own plug." />
+    <div className="chips"><Chip tone="gold">Lean</Chip><Chip tone="gold">N-Genius</Chip><Chip tone="gold">Razorpay</Chip><Chip tone="gold">MBME Pay (integration)</Chip><Chip tone="gold">TrySpare (integration)</Chip></div>
+  </>)
+}
+export function GatewayRight() { return <GatewayWall /> }
