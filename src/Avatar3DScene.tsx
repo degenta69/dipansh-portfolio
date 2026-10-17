@@ -34,7 +34,7 @@ export default function Avatar3DScene({ visible, size, onReady, onError }: Props
     scene.add(new AmbientLight(0xffffff, 0.55))
     const key = new DirectionalLight(0xfff3e6, 1.15); key.position.set(0.6, 1.4, 1.8); scene.add(key)
     const rim = new DirectionalLight(0x8b7bff, 3.2); rim.position.set(-1.6, 1.2, -1.2); scene.add(rim)
-    const rim2 = new DirectionalLight(0xc6ff3d, 0.9); rim2.position.set(1.8, 0.4, -1.4); scene.add(rim2)
+    const rim2 = new DirectionalLight(0xc6ff3d, 0.3); rim2.position.set(1.8, 0.4, -1.4); scene.add(rim2)
 
     let root: Object3D | null = null
     let head: Bone | null = null, neck: Bone | null = null
